@@ -1,5 +1,7 @@
 # Ember-aupac-mocks
 
+[![NPM package](https://img.shields.io/npm/v/ember-aupac-mocks.svg)](https://www.npmjs.com/package/ember-aupac-mocks) [![Build Status](https://img.shields.io/travis/aupac/ember-aupac-mocks.svg)](https://travis-ci.org/aupac/ember-aupac-mocks) [![Ember Observer Score](http://emberobserver.com/badges/ember-aupac-mocks.svg)](http://emberobserver.com/addons/ember-aupac-mocks)
+
 Javascript Mocking and Matching Library for unit testing ember-cli applications.
 
 ## Requirements 
