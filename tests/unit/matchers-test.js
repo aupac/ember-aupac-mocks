@@ -1,9 +1,10 @@
 import { module, test } from 'qunit';
-import { assertThat, Matchers } from 'ember-aupac-mocks';
+import { Matchers } from 'ember-aupac-mocks';
 
 module('Unit: Matchers');
 
 const {
+  assertThat,
   empty,
   everyItem,
   hasItem,
@@ -51,7 +52,9 @@ const {
   endsWith,
   equalIgnoringCase,
   matches,
-  startsWith
+  startsWith,
+  filter,
+  callTo
   } = Matchers;
 
 test('matchers: empty', function(assert) {
@@ -372,4 +375,24 @@ test('matchers: matches', function(assert) {
 test('matchers: startsWith', function(assert) {
   assert.expect(1);
   assertThat('string', startsWith('str'));
+});
+
+test('matchers: filter', function(assert) {
+  assert.expect(2);
+  var filtered = filter([0,1,2,3,4,5,6], even());
+  assertThat(filtered, equalTo([0,2,4,6]));
+
+  var filtered2 = filter([0,1,2,'1',0], 1);
+  assertThat(filtered2, equalTo([1,'1']));
+});
+
+test('matchers: callTo', function(assert) {
+  assert.expect(2);
+  var funcTest = callTo(parseInt, "2");
+  assertThat(funcTest(), sameAs(2));
+
+  var myFunc = function() {
+    throw Error();
+  };
+  assertThat(callTo(myFunc, 'hello', 'world'), raisesAnything());
 });

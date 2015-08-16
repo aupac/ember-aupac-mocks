@@ -44,26 +44,41 @@ JsHamcrest.Integration=function(){var b=this;return{copyMembers:function(a,b){if
   message:a}))}})}}}}();"undefined"!==typeof exports&&(exports.JsHamcrest=JsHamcrest);
 
 
+
+function importTo(target) {
+  JsMockito.each(JsMockito._export, function(exported) {
+    target[exported] = JsMockito[exported];
+  });
+
+  JsMockito.each(JsMockito.Verifiers._export, function(exported) {
+    target[exported] = JsMockito.Verifiers[exported];
+  });
+}
+
 //Shim as AMD module
 define('ember-aupac-mocks', [], function() {
   'use strict';
 
+  var mocks = {};
+  importTo(mocks);
+
+  var matchers = {};
+  JsHamcrest.Integration.copyMembers(matchers);
+  matchers.assertThat = function(actual, matcher, message) {
+    return JsHamcrest.Operators.assert(actual, matcher, {
+      message: message,
+      fail: function(message) {
+        QUnit.ok(false, message);
+      },
+      pass: function(message) {
+        QUnit.ok(true, message);
+      }
+    });
+  };
+
   return {
-    Mocks: JsMockito,
-    Verifiers: JsMockito.Verifiers,
-    Matchers: JsHamcrest.Matchers,
-    assertThat: function(actual, matcher, message) {
-      return JsHamcrest.Operators.assert(actual, matcher, {
-        message: message,
-        fail: function(message) {
-          QUnit.ok(false, message);
-        },
-        pass: function(message) {
-          QUnit.ok(true, message);
-        }
-      });
-    }
-    //Hamcrest: JsHamcrest
+    Mocks: mocks,
+    Matchers: matchers
   };
 });
 

@@ -1,45 +1,43 @@
 import Ember from 'ember';
 import { module, test } from 'qunit';
-import { Mocks, Verifiers } from 'ember-aupac-mocks';
+import { Mocks } from 'ember-aupac-mocks';
 
 module('Unit: Mocks');
 
 const {
+  mock,
   when,
   verify,
   mockFunction,
   spy,
   verifyZeroInteractions,
   verifyNoMoreInteractions,
-  isMock
-  } = Mocks;
-
-const {
+  isMock,
   never,
   zeroInteractions,
   noMoreInteractions,
   times,
   once
-  } = Verifiers;
+  } = Mocks;
 
 test('Mocks: mock', function(assert) {
   assert.expect(1);
-  const mock = Mocks.mock(Ember.Object);
-  assert.ok(isMock(mock));
+  const mockObject = mock(Ember.Object);
+  assert.ok(isMock(mockObject));
 });
 
 test('Mocks: when', function(assert) {
   assert.expect(1);
-  const mock = Mocks.mock(Ember.Object);
-  when(mock).get('name').thenReturn('test');
-  assert.equal('test', mock.get('name') , 'should be able to setup expectations of your mocks');
+  const mockObject = mock(Ember.Object);
+  when(mockObject).get('name').thenReturn('test');
+  assert.equal('test', mockObject.get('name') , 'should be able to setup expectations of your mocks');
 });
 
 test('Mocks: verify', function(assert) {
   assert.expect(0);
-  const mock = Mocks.mock(Ember.Object);
-  mock.get('name');
-  verify(mock).get('name');
+  const mockObject = mock(Ember.Object);
+  mockObject.get('name');
+  verify(mockObject).get('name');
 });
 
 test('Mocks: mockFunction', function(assert) {
@@ -64,55 +62,55 @@ test('Mocks: spy', function(assert) {
 
 test('Mocks: verifyZeroInteractions', function(assert) {
   assert.expect(0);
-  const mock = Mocks.mock(Ember.Object);
-  verifyZeroInteractions(mock);
+  const mockObject = mock(Ember.Object);
+  verifyZeroInteractions(mockObject);
 });
 
 test('Mocks: verifyNoMoreInteractions', function(assert) {
   assert.expect(0);
-  const mock = Mocks.mock(Ember.Object);
-  verifyNoMoreInteractions(mock);
+  const mockObject = mock(Ember.Object);
+  verifyNoMoreInteractions(mockObject);
 });
 
 test('Mocks: isMock', function(assert) {
   assert.expect(1);
-  const mock = Mocks.mock(Ember.Object);
-  assert.ok(isMock(mock));
+  const mockObject = mock(Ember.Object);
+  assert.ok(isMock(mockObject));
 });
 
 test('Mocks: never', function(assert) {
   assert.expect(0);
-  const mock = Mocks.mock(Ember.Object);
-  mock.set('name', 'bob');
-  verify(mock, never()).get('name');
+  const mockObject = mock(Ember.Object);
+  mockObject.set('name', 'bob');
+  verify(mockObject, never()).get('name');
 });
 
 test('Mocks: zeroInteractions', function(assert) {
   assert.expect(0);
-  const mock = Mocks.mock(Ember.Object);
-  verify(mock, zeroInteractions());
+  const mockObject = mock(Ember.Object);
+  verify(mockObject, zeroInteractions());
 });
 
 test('Mocks: noMoreInteractions', function(assert) {
   assert.expect(0);
-  const mock = Mocks.mock(Ember.Object);
-  when(mock).get('name').thenReturn('jack');
-  mock.get('name');
-  verify(mock).get('name'); //satisfy noMoreInteractions()
-  verify(mock, noMoreInteractions());
+  const mockObject = mock(Ember.Object);
+  when(mockObject).get('name').thenReturn('jack');
+  mockObject.get('name');
+  verify(mockObject).get('name'); //satisfy noMoreInteractions()
+  verify(mockObject, noMoreInteractions());
 });
 
 test('Mocks: times', function(assert) {
   assert.expect(0);
-  const mock = Mocks.mock(Ember.Object);
-  mock.set('name', 'joe');
-  mock.set('name', 'bob');
-  verify(mock, times(2)).set();
+  const mockObject = mock(Ember.Object);
+  mockObject.set('name', 'joe');
+  mockObject.set('name', 'bob');
+  verify(mockObject, times(2)).set();
 });
 
 test('Mocks: once', function(assert) {
   assert.expect(0);
-  const mock = Mocks.mock(Ember.Object);
-  mock.set('name', 'joe');
-  verify(mock, once()).set();
+  const mockObject = mock(Ember.Object);
+  mockObject.set('name', 'joe');
+  verify(mockObject, once()).set();
 });

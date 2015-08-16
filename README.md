@@ -16,7 +16,7 @@ COMING SOON!
 Import the Mocks and Matchers into your ember test.
 
 ```javascript
-import { assertThat, Mocks, Matchers, Verifiers } from 'ember-aupac-mocks';
+import { Mocks, Matchers } from 'ember-aupac-mocks';
 
 //Use object deconstruction to pull out the features you want to use
 const { mock, mockFunction, verify, when, ...more} = Mocks;
@@ -95,26 +95,20 @@ const {
   spy,
   verifyZeroInteractions,
   verifyNoMoreInteractions,
-  isMock
-  } = Mocks;
-```
-
-## Verifiers - [docs](http://jsmockito.org/api/1.0.4/symbols/JsMockito.html)
-
-```javascript
-const {
+  isMock,
   never,
   zeroInteractions,
   noMoreInteractions,
   times,
   once
-  } = Verifiers;
+  } = Mocks;
 ```
 
 ## Matchers - [docs](http://danielmartins.ninja/jshamcrest/modules/matchers.html)
 
 ```javascript
 const {
+  assertThat,
   empty,
   everyItem,
   hasItem,
@@ -162,7 +156,9 @@ const {
   endsWith,
   equalIgnoringCase,
   matches,
-  startsWith
+  startsWith,
+  filter,
+  callTo
   } = Matchers;
 ```
 
