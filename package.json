@@ -1,7 +1,7 @@
 {
   "name": "ember-aupac-mocks",
   "version": "1.0.1",
-  "description": "Mocking for ember tests",
+  "description": "Mocking and Matching Library for unit testing ember-cli applications.",
   "directories": {
     "doc": "doc",
     "test": "tests"
