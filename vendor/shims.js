@@ -43,13 +43,27 @@ JsHamcrest.Integration=function(){var b=this;return{copyMembers:function(a,b){if
   Screw.Matchers;JsHamcrest.Integration.copyMembers(a);a.assertThat=function(a,b,e){return JsHamcrest.Operators.assert(a,b,{message:e,fail:function(a){throw a;}})}},jasmine:function(a){a=a?a:{};a=a.scope||b;JsHamcrest.Integration.copyMembers(a);a.assertThat=function(a,b,e){return JsHamcrest.Operators.assert(a,b,{message:e,fail:function(a){jasmine.getEnv().currentSpec.addMatcherResult(new jasmine.ExpectationResult({passed:!1,message:a}))},pass:function(a){jasmine.getEnv().currentSpec.addMatcherResult(new jasmine.ExpectationResult({passed:!0,
   message:a}))}})}}}}();"undefined"!==typeof exports&&(exports.JsHamcrest=JsHamcrest);
 
+
 //Shim as AMD module
 define('ember-aupac-mocks', [], function() {
   'use strict';
 
   return {
     Mocks: JsMockito,
-    Matchers: JsHamcrest
+    Verifiers: JsMockito.Verifiers,
+    Matchers: JsHamcrest.Matchers,
+    assertThat: function(actual, matcher, message) {
+      return JsHamcrest.Operators.assert(actual, matcher, {
+        message: message,
+        fail: function(message) {
+          QUnit.ok(false, message);
+        },
+        pass: function(message) {
+          QUnit.ok(true, message);
+        }
+      });
+    }
+    //Hamcrest: JsHamcrest
   };
 });
 

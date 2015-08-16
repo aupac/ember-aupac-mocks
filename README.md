@@ -16,74 +16,27 @@ COMING SOON!
 Import the Mocks and Matchers into your ember test.
 
 ```javascript
-import {Mocks, Matchers} from 'ember-aupac-mocks';
+import { assertThat, Mocks, Matchers, Verifiers } from 'ember-aupac-mocks';
+
+//Use object deconstruction to pull out the features you want to use
+const { mock, mockFunction, verify, when, ...more} = Mocks;
+const { empty, emailAddress, greaterThan, everyItem, hasSize, even, lessThan, either, ...more} = Matchers;
+
+//Start mocking and matching in your tests
+test('mocking and matching', function(assert) {
+
+  const myMock = mock(Ember.Object);
+  when(myMock).get('name').thenReturn('hello world');
+  assert.equal('hello world', myMock.get('name'), 'should be the same');
+  verify(myMock).get('name');
+
+  assertThat('', empty());
+  assertThat('user@domain.com', emailAddress());
+  assertThat(10, either(greaterThan(50)).or(even()));
+  assertThat([1,2,3], everyItem(greaterThan(0)));
+  assertThat([1,2,3], hasSize(lessThan(5)));
+});
 ```
-
-#### Mocks contains the following:
-
-- `mock`
-- `when`
-- `verify`
-- `mockFunction`
-- `spy`
-- `verifyZeroInteractions`
-- `verifyNoMoreInteractions`
-- `isMock`
-- `never`
-- `zeroInteractions`
-- `noMoreInteractions`
-- `times`
-- `once`
-
-#### Matchers contains the following:
-
-- `empty`
-- `everyItem`
-- `hasItem`
-- `hasItems`
-- `hasSize`
-- `isIn`
-- `oneOf`
-- `allOf`
-- `anyOf`
-- `anything`
-- `both`
-- `either`
-- `equalTo`
-- `is`
-- `nil`
-- `not`
-- `raises`
-- `raisesAnything`
-- `sameAs`
-- `truth`
-- `equivalentMap`
-- `equivalentArray`
-- `between`
-- `closeTo`
-- `divisibleBy`
-- `even`
-- `greaterThan`
-- `greaterThanOrEqualTo`
-- `lessThan`
-- `lessThanOrEqualTo`
-- `notANumber`
-- `odd`
-- `zero`
-- `bool`
-- `func`
-- `hasFunction`
-- `hasMember`
-- `instanceOf`
-- `number`
-- `object`
-- `string`
-- `typeOf`
-- `containsString`
-- `emailAddress`
-- `endsWith`
-- `equalIgnoringCase`
-- `matches`
 
 ## Features
 
@@ -130,6 +83,88 @@ verify(mockedFunc)('hello world');
 
 * Visit [JsMockito](http://jsmockito.org/api/1.0.4/) for more information about mocking.
 * Visit [JsHamcrest](http://danielmartins.ninja/jshamcrest) for more information about the matching.
+
+## Mocks - [docs](http://jsmockito.org/api/1.0.4/symbols/JsMockito.html)
+
+```javascript
+const {
+  mock,
+  when,
+  verify,
+  mockFunction,
+  spy,
+  verifyZeroInteractions,
+  verifyNoMoreInteractions,
+  isMock
+  } = Mocks;
+```
+
+## Verifiers - [docs](http://jsmockito.org/api/1.0.4/symbols/JsMockito.html)
+
+```javascript
+const {
+  never,
+  zeroInteractions,
+  noMoreInteractions,
+  times,
+  once
+  } = Verifiers;
+```
+
+## Matchers - [docs](http://danielmartins.ninja/jshamcrest/modules/matchers.html)
+
+```javascript
+const {
+  empty,
+  everyItem,
+  hasItem,
+  hasItems,
+  hasSize,
+  isIn,
+  oneOf,
+  allOf,
+  anyOf,
+  anything,
+  both,
+  either,
+  equalTo,
+  is,
+  nil,
+  not,
+  raises,
+  raisesAnything,
+  sameAs,
+  truth,
+  equivalentMap,
+  equivalentArray,
+  between,
+  closeTo,
+  divisibleBy,
+  even,
+  greaterThan,
+  greaterThanOrEqualTo,
+  lessThan,
+  lessThanOrEqualTo,
+  notANumber,
+  odd,
+  zero,
+  bool,
+  func,
+  hasFunction,
+  hasMember,
+  instanceOf,
+  number,
+  object,
+  string,
+  typeOf,
+  containsString,
+  emailAddress,
+  endsWith,
+  equalIgnoringCase,
+  matches,
+  startsWith
+  } = Matchers;
+```
 
 -------------------------------
 
