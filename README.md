@@ -10,7 +10,7 @@ Javascript Mocking and Matching Library for unit testing ember-cli applications.
 
 ## Installing
 ```bash
-COMING SOON!
+ember install ember-aupac-mocks
 ```
 
 ## Usage
